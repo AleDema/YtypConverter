@@ -86,6 +86,7 @@ public class Main {
 			            	 float rotW = Float.parseFloat( rotation.getAttribute("w"));
 			            	 
 			            	 
+			            	 /* Not working
 			            	    // roll (x-axis rotation)
 			            	    double sinr_cosp = 2 * (rotW * rotX + rotY * rotZ);
 			            	    double cosr_cosp = 1 - 2 * (rotX* rotX + rotY * rotY);
@@ -109,6 +110,46 @@ public class Main {
 			            	    double cosy_cosp = 1 - 2 * (rotY * rotY + rotZ * rotZ);
 			            	    yaw = Math.atan2(siny_cosp, cosy_cosp);
 			            	    
+			            	    
+			            	    //How it should be
+								public void SetOrientation(Quaternion ori, bool inverse = false)
+								        {
+								            if (MloParent != null)
+								            {
+								                var mloInv = Quaternion.Normalize(Quaternion.Invert(MloParent.Orientation));
+								                Quaternion rel = Quaternion.Normalize(Quaternion.Multiply(mloInv, ori));
+								                Quaternion inv = Quaternion.Normalize(Quaternion.Invert(rel));
+								                Orientation = ori;
+								                _CEntityDef.rotation = inv.ToVector4();
+								            }
+								            else
+								            {
+								                Orientation = inverse ? Quaternion.Normalize(Quaternion.Invert(ori)) : ori;
+								                if (MloInstance != null)
+								                {
+								                    _CEntityDef.rotation = Orientation.ToVector4();
+								                }
+								                else
+								                {
+								                    Quaternion inv = inverse ? ori : Quaternion.Normalize(Quaternion.Invert(ori));
+								                    _CEntityDef.rotation = inv.ToVector4();
+								                }
+								            }
+								
+								            if (MloInstance != null)
+								            {
+								                MloInstance.SetOrientation(ori);
+								                MloInstance.UpdateEntities();
+								            }
+								
+								            UpdateBB();
+								            UpdateWidgetPosition();
+								            UpdateWidgetOrientation();
+								        }
+
+			            	    
+			            	    */ 
+			            	 
 			            	    Quaternion q = new Quaternion(0.0, 0.0, 0.0, 1.0);
 			            	 
 			            	    
