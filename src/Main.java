@@ -40,8 +40,7 @@ public class Main {
 	        		 if (s.equals("v_apartment_high")){
 	        			// nList = (NodeList) nList.item(temp);
 	        			 index = temp;
-	        			 System.out.println("test");
-	        			 System.out.println(index);
+	        			// System.out.println(index);
 	        		 }
 	        	 }
 	         }
@@ -91,14 +90,17 @@ public class Main {
 
 						 newQ = newQ.getInverse();
 						 newQ = newQ.normalize();
-
-						 System.out.println(hash);
-						 System.out.println("NEWQ");
-						 System.out.println(newQ);
+//
+//						 System.out.println(hash);
+//						 System.out.println("NEWQ");
+//						 System.out.println(newQ.getQ0());
+//						 System.out.println(newQ.getQ1());
+//						 System.out.println(newQ.getQ2());
+//						 System.out.println(newQ.getQ3());
 
 						 String item = "item";
-						 String create = item + " = CreateObject(" + hash + ",generator.x + " + x + " ,generator.y +" + y + ",generator.z+ " + z + ",false,false,false)\n";
-						 String quaternion = "SetEntityQuaternion(" + item + "," + rotX + "," + rotY + "," + rotZ + "," + rotW + ")\n";
+						 String create = item + " = CreateObjectNoOffset(" + hash + ",generator.x + " + x + " ,generator.y +" + y + ",generator.z+ " + z + ",false,false,false)\n";
+						 String quaternion = "SetEntityQuaternion(" + item + "," + newQ.getQ3() + "," + newQ.getQ2() + "," + newQ.getQ1() + "," + newQ.getQ0() + ")\n";
 						 String freeze = "FreezeEntityPosition(" + item + ",true)\n";
 						 String insert = "table.insert(objects," + item + ")\n";
 			            	 
